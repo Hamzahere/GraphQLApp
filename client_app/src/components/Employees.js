@@ -1,9 +1,9 @@
 import React from 'react';
 import { useQuery, gql } from '@apollo/client';
 
-const GET_STUDENTS = gql`
-  query GetAllStudents {
-    students {
+const GET_EMPLOYEES = gql`
+  query GetAllEmployees {
+    employees {
       id,
       name,
       email,
@@ -12,8 +12,8 @@ const GET_STUDENTS = gql`
   }
 `;
 
-function Students() {
-    const { loading, error, data } = useQuery(GET_STUDENTS);
+function Employees() {
+    const { loading, error, data } = useQuery(GET_EMPLOYEES);
 
     if (loading)
         return <h1>Loading ...</h1>
@@ -21,11 +21,11 @@ function Students() {
     if (error)
         return <h1>Error</h1>
 
-    const { students } = data;
+    const { employees } = data;
 
     return (
         <div>
-            <h1>Student List</h1>
+            <h1>Employees List</h1>
             <table border="2" width="500">
                 <thead>
                     <tr>
@@ -36,7 +36,7 @@ function Students() {
                 </thead>
                 <tbody>
                     {
-                        students.map(std => {
+                        employees.map(std => {
                             return (<tr key={std.id}>
                                 <td>{std.name}</td>
                                 <td>{std.age}</td>
@@ -50,4 +50,4 @@ function Students() {
     );
 }
 
-export default Students;
+export default Employees;

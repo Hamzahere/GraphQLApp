@@ -1,42 +1,46 @@
 const { ApolloServer, gql } = require('apollo-server');
 
-const students = [
+const employees = [
     {
         "id": 1,
         "name": "Ali",
         "email": "ali@gmail.com",
-        "age": 21
+        "age": 21,
+        "salary": 40000
     },
     {
         "id": 2,
         "name": "Mohsin",
         "email": "mohsin@gmail.com",
-        "age": 21
+        "age": 21,
+        "salary"  : 35000
     },
     {
         "id": 3,
         "name": "Aamir",
         "email": "aamir@gmail.com",
-        "age": 21
+        "age": 21,
+        "salary" : 60000
     }
 ]
 
 const resolvers = {
     Query: {
-      students: () => students,
+      employees: () => employees,
     },
   };
 
 const typeDefs = gql`
-  type Student {
+  type Employee {
     id: Int
     name: String
     email: String
     age: Int
+    salary:Int
   }
 
   type Query {
-    students: [Student]
+    employees: [Employee]
   }
 `;
 
