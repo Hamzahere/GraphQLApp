@@ -28,6 +28,28 @@ const resolvers = {
     Query: {
       employees: () => employees,
     },
+
+    Mutation: {
+      addEmployee: (e, { input }) => {
+        console.log(input)
+        employees.push(
+          {
+            name: input.name,
+            age: input.age,
+            email: input.email,
+            salary:input.salary,
+            id: input.id
+          }
+        )
+        return {
+          name: input.name,
+            age: input.age,
+            email: input.email,
+            salary:input.salary,
+            id: input.id
+        }
+      }
+    }
   };
 
 const typeDefs = gql`
@@ -39,8 +61,20 @@ const typeDefs = gql`
     salary:Int
   }
 
+  input EmpInput {
+    id: Int
+    name: String
+    email: String
+    age: Int
+    salary:Int
+  }
+
   type Query {
     employees: [Employee]
+  }
+
+  type Mutation {
+    addEmployee(input: EmpInput): Employee
   }
 `;
 

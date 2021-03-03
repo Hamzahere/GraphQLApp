@@ -1,5 +1,5 @@
 import React from 'react';
-import { useQuery, gql } from '@apollo/client';
+import { useQuery, gql ,useMutation} from '@apollo/client';
 
 const GET_EMPLOYEES = gql`
   query GetAllEmployees {
@@ -10,10 +10,24 @@ const GET_EMPLOYEES = gql`
       age
     }
   }
+`
+  const ADD_EMPLOYEE = gql`
+  mutation AddEmployee($id: Int!, $name:String!, $email:String,$age:Int!,$salary:Int!) {
+    addEmployee(
+        input:{id:$id,name:$name,email:$email,age:$age,salary:$salary}
+    ) {
+      id
+      name
+    }
+  }
 `;
 
 function Employees() {
     const { loading, error, data } = useQuery(GET_EMPLOYEES);
+
+    
+        const [addEmpl] = useMutation(ADD_EMPLOYEE);
+      
 
     if (loading)
         return <h1>Loading ...</h1>
@@ -46,6 +60,10 @@ function Employees() {
                     }
                 </tbody>
             </table>
+
+            <button onClick={()=>
+                addEmpl({ variables: { id: 1,name:"fayez",email:"fayez@gmail.com",age:21,salary:4000 } })
+            }>Add Employee</button>
         </div>
     );
 }
